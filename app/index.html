@@ -15,36 +15,151 @@
 
 <body>
 
-    <ons-navigator swipeable id="myNavigator" page="page1.html"></ons-navigator>
+    <div class="Outerview">
+        <div class="title-section">
+            <p class="sub-heading">
+                Limited time event
+            </p>
+            <p class="main-heading">
+                Don't miss these gaming events
+            </p>
+        </div>
+        <div class="icon-section">
 
-    <template id="page1.html">
-        <ons-page id="page1">
-            <ons-toolbar>
-                <div class="center">Page 1</div>
-            </ons-toolbar>
+        </div>
+    </div>
 
-            <p>This is the first page.</p>
+    <script>
+        var isMobile = {
+            Android: function() {
+                return navigator.userAgent.match(/Android/i);
+            },
+            BlackBerry: function() {
+                return navigator.userAgent.match(/BlackBerry/i);
+            },
+            iOS: function() {
+                return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+            },
+            Opera: function() {
+                return navigator.userAgent.match(/Opera Mini/i);
+            },
+            Windows: function() {
+                return navigator.userAgent.match(/IEMobile/i);
+            },
+            any: function() {
+                return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() ||
+                    isMobile.Windows());
+            }
+        };
 
-            <ons-button id="push-button">Push page</ons-button>
-        </ons-page>
-    </template>
+        if (!isMobile.iOS()) {
+            document.body.innerHTML = `
+            
+            <div class="Outerview">
+        <div class="title-section">
+            <p class="sub-heading">
+                Incompatible device
+            </p>
+            <p class="main-heading">
+                Incompatible
+            </p>
+        </div>
+        <div class="icon-section">
+            <img src="res/no-support.png">
+            </img>
+        </div>
+    </div>
 
-    <template id="page2.html">
-        <ons-page id="page2">
-            <ons-toolbar>
-                <div class="left">
-                    <ons-back-button>Page 1</ons-back-button>
-                </div>
-                <div class="center"></div>
-            </ons-toolbar>
-
-            <p>This is the second page.</p>
-        </ons-page>
-    </template>
+            `;
+        }
+    </script>
 
     <style>
+        * {
+            padding: 0;
+            margin: 0;
+            display: border-box;
+        }
+        
+        img {
+            width: 100%;
+            height: 85%;
+        }
+        
+        html,
         body {
-            margin: auto;
+            background-color: #000;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: sans-serif;
+            color: #fff;
+        }
+        
+        .Outerview {
+            height: 375px;
+            width: 350px;
+            background: rgba(100, 100, 100, 0.3);
+            display: flex;
+            align-items: left;
+            flex-direction: column;
+            overflow: hidden;
+            border-radius: 10px;
+            -webkit-box-shadow: 2px 2px 0px 0px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        
+        .sub-heading {
+            color: rgba(255, 255, 255, 0.6);
+            text-align: left;
+            padding: 15px 15px 5px 15px;
+            font-size: 16px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        
+        .main-heading {
+            text-align: left;
+            padding: 5px 100px 5px 15px;
+            font-size: 24px;
+            font-weight: 600;
+            text-transform: capitalize;
+        }
+        
+        .icon-section div:first-child {
+            margin-left: -10%;
+        }
+        
+        .icon-section div:last-child {
+            margin-left: -30%;
+        }
+        
+        .icon-holder {
+            display: flex;
+            justify-content: space-between;
+            overflow: hidden;
+        }
+        
+        .icon {
+            border-radius: 15px;
+            height: 75px;
+            width: 75px;
+            margin: 5px;
+            position: relative;
+            animation: slideShow 50s infinite;
+            -webkit-box-shadow: 2px 2px 0px 0px rgba(0, 0, 0, 0.1);
+            box-shadow: 2px 2px 0px 0px rgba(0, 0, 0, 0.1);
+        }
+        
+        @keyframes slideShow {
+            from {
+                left: 0%;
+            }
+            to {
+                left: -50%;
+            }
         }
     </style>
 
