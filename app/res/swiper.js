@@ -1,9 +1,9 @@
-/*
-
-Swiper.JS
-Source: https://stackoverflow.com/a/39545306
-
-*/
+//////////////////////////////////////////////////
+//                                              //
+// Swiper.JS                                    //
+// Source: https://stackoverflow.com/a/39545306 //
+//                                              //
+//////////////////////////////////////////////////
 
 class Swipe {
     constructor(element) {
