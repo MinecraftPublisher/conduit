@@ -9,8 +9,8 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
     <meta name="apple-mobile-web-app-title" content="Conduit">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <link rel="apple-touch-icon" href="../conduit.png?uncache=92537987">
-    <link rel="shortcut icon" href="../conduit.png?uncache=92537987">
+    <link rel="apple-touch-icon" href="../conduit.png?uncache=92547987">
+    <link rel="shortcut icon" href="../conduit.png?uncache=92547987">
 </head>
 
 <body>
@@ -18,14 +18,17 @@
     <div class="Outerview">
         <div class="title-section">
             <p class="sub-heading">
-                Limited time event
+                Introduction to conduit
             </p>
             <p class="main-heading">
-                Don't miss these gaming events
+                Welcome to conduit
+            </p>
+            <p class="main">
+                Learn more about conduit in this post.
             </p>
         </div>
         <div class="icon-section">
-
+            <img class="icon-img" src="res/empty-picture.png"></img>
         </div>
     </div>
 
@@ -52,7 +55,7 @@
             }
         };
 
-        if (!(isMobile.iOS() && window.navigator.standalone)) {
+        if ((!(isMobile.iOS() && window.navigator.standalone)) && (document.cookie != "dev")) {
             document.body.innerHTML = `
             
             <div class="Outerview">
@@ -63,14 +66,39 @@
             <p class="main-heading">
                 Incompatible
             </p>
+
+            <!--
+
+                    To enable developement mode, type in "devmode();" in the console.
+                Developement mode bypasses the ios/standalone check.
+                Enjoy!
+
+                - The kind creator
+
+            -->
         </div>
         <div class="icon-section">
-            <img src="res/no-support.png">
-            </img>
+            <img class="icon-img" src="res/no-support.png"></img>
         </div>
     </div>
 
             `;
+        }
+
+        function devmode() {
+            if (document.cookie == "dev") {
+                document.cookie = "";
+                console.log("Dev mode is now off.");
+                setTimeout(function() {
+                    location.reload();
+                }, 1000);
+            } else {
+                document.cookie = "dev";
+                console.log("Dev mode is now on.");
+                setTimeout(function() {
+                    location.reload();
+                }, 1000);
+            }
         }
     </script>
 
@@ -99,7 +127,8 @@
         }
         
         .Outerview {
-            height: 375px;
+            min-height: 320px;
+            max-height: 450px;
             width: 350px;
             background: rgba(100, 100, 100, 0.3);
             display: flex;
@@ -107,8 +136,6 @@
             flex-direction: column;
             overflow: hidden;
             border-radius: 10px;
-            -webkit-box-shadow: 2px 2px 0px 0px rgba(0, 0, 0, 0.1);
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
         }
         
         .sub-heading {
@@ -126,40 +153,21 @@
             font-size: 24px;
             font-weight: 600;
             text-transform: capitalize;
+            width: 100%;
         }
         
-        .icon-section div:first-child {
-            margin-left: -10%;
-        }
-        
-        .icon-section div:last-child {
-            margin-left: -30%;
+        .main {
+            text-align: left;
+            padding: 5px 100px 5px 15px;
+            font-size: 18px;
+            font-weight: 400;
+            width: 100%;
         }
         
         .icon-holder {
             display: flex;
             justify-content: space-between;
             overflow: hidden;
-        }
-        
-        .icon {
-            border-radius: 15px;
-            height: 75px;
-            width: 75px;
-            margin: 5px;
-            position: relative;
-            animation: slideShow 50s infinite;
-            -webkit-box-shadow: 2px 2px 0px 0px rgba(0, 0, 0, 0.1);
-            box-shadow: 2px 2px 0px 0px rgba(0, 0, 0, 0.1);
-        }
-        
-        @keyframes slideShow {
-            from {
-                left: 0%;
-            }
-            to {
-                left: -50%;
-            }
         }
     </style>
 
