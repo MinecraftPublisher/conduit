@@ -11,7 +11,11 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <link rel="apple-touch-icon" href="../conduit.png?uncache=92547987">
     <link rel="shortcut icon" href="../conduit.png?uncache=92547987">
-    <script src="https://unpkg.com/@barba/core"></script>
+    <script src="res/swiper.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="/monolisa.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -36,7 +40,11 @@
             $loader.classList.remove('loader--active');
         };
 
+        let previous = 1;
+        let current = 1;
+
         function loadPage(pageNumber) {
+            previous = current;
             document.title = "Loading...";
             $loader.classList.add('loader--active');
 
@@ -251,11 +259,12 @@
         * {
             padding: 0;
             margin: 0;
+            font-family: 'MonoLisa', monospace;
         }
         
         img {
             width: 100%;
-            height: 90%;
+            height: 100%;
         }
         
         html,
@@ -305,7 +314,7 @@
             padding: 5px 100px 5px 15px;
             font-size: 18px;
             font-weight: 400;
-            width: 100%;
+            width: 90%;
         }
         
         .icon-holder {
