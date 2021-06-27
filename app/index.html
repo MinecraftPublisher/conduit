@@ -11,25 +11,170 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <link rel="apple-touch-icon" href="../conduit.png?uncache=92547987">
     <link rel="shortcut icon" href="../conduit.png?uncache=92547987">
+    <script src="https://unpkg.com/@barba/core"></script>
 </head>
 
 <body>
 
-    <div class="Outerview">
-        <div class="title-section">
-            <p class="sub-heading">
-                Introduction to conduit
-            </p>
-            <p class="main-heading">
-                Welcome to conduit
-            </p>
-            <p class="main">
-                Learn more about conduit in this post.
-            </p>
-        </div>
-        <div class="icon-section">
-            <img class="icon-img" src="res/empty-picture.png"></img>
-        </div>
+    <!-- BEGIN seamless page loader -->
+
+
+
+
+    <div class="loader loader--active">
+        <div class="loader__tile"></div>
+        <div class="loader__tile"></div>
+        <div class="loader__tile"></div>
+        <div class="loader__tile"></div>
+        <div class="loader__tile"></div>
+    </div>
+
+    <script>
+        var $loader = document.querySelector('.loader');
+
+        window.onload = function() {
+            $loader.classList.remove('loader--active');
+        };
+
+        function loadPage(pageNumber) {
+            document.title = "Loading...";
+            $loader.classList.add('loader--active');
+
+            window.setTimeout(function() {
+                document.title = "Conduit";
+                $loader.classList.remove('loader--active')
+            }, 2000);
+        }
+    </script>
+
+    <style>
+        .loader {
+            position: fixed;
+            z-index: 999;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100vh;
+            transition: width 0s 1.4s ease;
+        }
+        
+        .loader .loader__icon {
+            position: absolute;
+            z-index: 1;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .loader .loader__icon svg {
+            transform-origin: 0 0;
+        }
+        
+        .loader .loader__tile {
+            position: absolute;
+            left: 0;
+            width: 0;
+            height: 20%;
+            background-color: rgb(40, 40, 40);
+            transition: width 0.7s ease;
+        }
+        
+        .loader .loader__tile:nth-child(0) {
+            top: calc(-1 * 20%);
+            transition-delay: -0.2s;
+        }
+        
+        .loader .loader__tile:nth-child(1) {
+            top: calc(0 * 20%);
+            transition-delay: 0s;
+        }
+        
+        .loader .loader__tile:nth-child(2) {
+            top: calc(1 * 20%);
+            transition-delay: 0.2s;
+        }
+        
+        .loader .loader__tile:nth-child(3) {
+            top: calc(2 * 20%);
+            transition-delay: 0.4s;
+        }
+        
+        .loader .loader__tile:nth-child(4) {
+            top: calc(3 * 20%);
+            transition-delay: 0.6s;
+        }
+        
+        .loader .loader__tile:nth-child(5) {
+            top: calc(4 * 20%);
+            transition-delay: 0.8s;
+        }
+        
+        .loader--active {
+            width: 100%;
+            transition-delay: 0s;
+        }
+        
+        .loader--active .loader__icon {
+            opacity: 1;
+            transition: opacity 0.5s 1.4s ease;
+        }
+        
+        .loader--active .loader__tile {
+            width: 100%;
+        }
+        
+        .loader--active .loader__tile:nth-child(0) {
+            transition-delay: -0.2s;
+        }
+        
+        .loader--active .loader__tile:nth-child(1) {
+            transition-delay: 0s;
+        }
+        
+        .loader--active .loader__tile:nth-child(2) {
+            transition-delay: 0.2s;
+        }
+        
+        .loader--active .loader__tile:nth-child(3) {
+            transition-delay: 0.4s;
+        }
+        
+        .loader--active .loader__tile:nth-child(4) {
+            transition-delay: 0.6s;
+        }
+        
+        .loader--active .loader__tile:nth-child(5) {
+            transition-delay: 0.8s;
+        }
+    </style>
+
+    <!-- END seamless page loader -->
+
+
+    <div class="page-1">
+        <a onclick="loadPage(2);" class="card-click">
+            <div class="Outerview">
+                <div class="title-section">
+                    <p class="sub-heading">
+                        Introduction to conduit
+                    </p>
+                    <p class="main-heading">
+                        Welcome to conduit
+                    </p>
+                    <p class="main">
+                        Learn more about conduit in this post.
+                    </p>
+                </div>
+                <div class="icon-section">
+                    <img class="icon-img" src="res/empty-picture.png"></img>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="page-2">
+
     </div>
 
     <script>
@@ -106,7 +251,6 @@
         * {
             padding: 0;
             margin: 0;
-            display: border-box;
         }
         
         img {
