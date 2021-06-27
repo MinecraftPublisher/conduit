@@ -12,14 +12,24 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css">
     <script src='https://js.sentry-cdn.com/d7598e6c887b459cbef62d65a2f03995.min.js' crossorigin="anonymous"></script>
+    <script src="https://browser.sentry-cdn.com/6.7.2/bundle.min.js" integrity="sha384-mH9XMETXlBjvLoIIA0do4C9E+wHcMwicM3W3ppIqBJvJq+ge8XBvyY6Of1GcSjIQ" crossorigin="anonymous"></script>
 </head>
 
 <body>
 
     <script>
-        console.log("hi");
-        lolOmfg();
-        console.log("hi2");
+        Sentry.init({
+            dsn: "https: //d7598e6c887b459cbef62d65a2f03995@o881457.ingest.sentry.io/5835824",
+            beforeSend(event, hint) {
+                // Check if it is an exception, and if so, show the report dialog
+                if (event.exception) {
+                    Sentry.showReportDialog({
+                        eventId: event.event_id
+                    });
+                }
+                return event;
+            },
+        });
     </script>
 
     <h1>Conduit</h1>
