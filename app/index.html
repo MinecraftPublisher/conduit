@@ -160,56 +160,57 @@
 
     <!-- END seamless page loader -->
 
+    <div class="wrapper-main">
 
-    <div class="page-1">
-        <a onclick="loadPage(2);" class="card-click">
-            <div class="Outerview">
-                <div class="title-section">
-                    <p class="sub-heading">
-                        Introduction to conduit
-                    </p>
-                    <p class="main-heading">
-                        Welcome to conduit
-                    </p>
-                    <p class="main">
-                        Learn more about conduit in this post.
-                    </p>
+        <div class="page-1">
+            <a onclick="loadPage(2);" class="card-click">
+                <div class="Outerview">
+                    <div class="title-section">
+                        <p class="sub-heading">
+                            Introduction to conduit
+                        </p>
+                        <p class="main-heading">
+                            Welcome to conduit
+                        </p>
+                        <p class="main">
+                            Learn more about conduit in this post.
+                        </p>
+                    </div>
+                    <div class="icon-section">
+                        <img class="icon-img" src="res/empty-picture.png"></img>
+                    </div>
                 </div>
-                <div class="icon-section">
-                    <img class="icon-img" src="res/empty-picture.png"></img>
-                </div>
-            </div>
-        </a>
-    </div>
-    <div class="page-2">
+            </a>
+        </div>
+        <div class="page-2">
 
-    </div>
+        </div>
 
-    <script>
-        var isMobile = {
-            Android: function() {
-                return navigator.userAgent.match(/Android/i);
-            },
-            BlackBerry: function() {
-                return navigator.userAgent.match(/BlackBerry/i);
-            },
-            iOS: function() {
-                return navigator.userAgent.match(/iPhone|iPad|iPod/i);
-            },
-            Opera: function() {
-                return navigator.userAgent.match(/Opera Mini/i);
-            },
-            Windows: function() {
-                return navigator.userAgent.match(/IEMobile/i);
-            },
-            any: function() {
-                return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() ||
-                    isMobile.Windows());
-            }
-        };
+        <script>
+            var isMobile = {
+                Android: function() {
+                    return navigator.userAgent.match(/Android/i);
+                },
+                BlackBerry: function() {
+                    return navigator.userAgent.match(/BlackBerry/i);
+                },
+                iOS: function() {
+                    return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+                },
+                Opera: function() {
+                    return navigator.userAgent.match(/Opera Mini/i);
+                },
+                Windows: function() {
+                    return navigator.userAgent.match(/IEMobile/i);
+                },
+                any: function() {
+                    return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() ||
+                        isMobile.Windows());
+                }
+            };
 
-        if ((!(isMobile.iOS() && window.navigator.standalone)) && (document.cookie != "dev")) {
-            document.body.innerHTML = `
+            if ((!(isMobile.iOS() && window.navigator.standalone)) && (document.cookie != "dev")) {
+                document.querySelector(".wrapper-main").innerHTML = `
             
             <div class="Outerview">
         <div class="title-section">
@@ -236,24 +237,26 @@
     </div>
 
             `;
-        }
-
-        function devmode() {
-            if (document.cookie == "dev") {
-                document.cookie = "";
-                console.log("Dev mode is now off.");
-                setTimeout(function() {
-                    location.reload();
-                }, 1000);
-            } else {
-                document.cookie = "dev";
-                console.log("Dev mode is now on.");
-                setTimeout(function() {
-                    location.reload();
-                }, 1000);
             }
-        }
-    </script>
+
+            function devmode() {
+                if (document.cookie == "dev") {
+                    document.cookie = "";
+                    console.log("Dev mode is now off.");
+                    setTimeout(function() {
+                        location.reload();
+                    }, 1000);
+                } else {
+                    document.cookie = "dev";
+                    console.log("Dev mode is now on.");
+                    setTimeout(function() {
+                        location.reload();
+                    }, 1000);
+                }
+            }
+        </script>
+
+    </div>
 
     <style>
         * {
