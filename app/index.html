@@ -57,14 +57,68 @@
             xmlHttp.send(null);
         }
 
-        let posts = {};
+        let posts = [];
+        let HTMLs = {};
 
         function initiate() {
             httpGetAsync("posts.JSON", function(res) {
                 try {
                     posts = JSON.parse(res);
-                } catch {
+                    let output = "";
+                    let id = 1;
 
+                    posts.forEach((post) => {
+
+                        HTMLs["post-" + id] = post.html;
+                        output += `<div class="page-${id} page-">
+            <a class="card-click" onclick="loadPage(HTMLs['post-${id}']);">
+                <div class="Outerview">
+                    <div class="title-section">
+                        <p class="sub-heading">
+                            ${post.sub}
+                        </p>
+                        <p class="main-heading">
+                            ${post.title}
+                        </p>
+                        <p class="main">
+                            ${post.desc}
+                        </p>
+                    </div>
+                    <div class="icon-section">
+                        <img class="icon-img" src="res/${post.image}"></img>
+                    </div>
+                </div>
+            </a>
+        </div><br><br>`;
+                    });
+
+                    document.querySelector(".wrapper-main").innerHTML = output + `<div class="space"></div>`;
+
+                } catch (error) {
+                    document.querySelector(".wrapper-main").innerHTML = `<div class="page-error page-">
+            <a class="card-click" onclick="loadPage(HTMLs[\"post-\" + id]);">
+                <div class="Outerview">
+                    <div class="title-section">
+                        <p class="sub-heading">
+                            Parser error
+                        </p>
+                        <p class="main-heading">
+                            Error while parsing data, try again later.
+                        </p>
+                        <p class="main">
+                            ${error}
+                        </p>
+                    </div>
+                    <div class="icon-section">
+                        <img class="icon-img" src="res/empty-picture.png"></img>
+                    </div>
+                </div>
+            </a>
+        </div><br><br>
+                    
+                    
+                    
+                    `;
                 }
                 $loader.classList.remove('loader--active');
             });
@@ -77,18 +131,62 @@
         let previous = 1;
         let current = 1;
 
-        function loadPage(pageNumber) {
+        function makeid(length) {
+            var result = '';
+            var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+            var charactersLength = characters.length;
+            for (var i = 0; i < length; i++) {
+                result += characters.charAt(Math.floor(Math.random() *
+                    charactersLength));
+            }
+            return result;
+        }
+
+        function loadPage(data) {
             previous = current;
             document.title = "Loading...";
             $loader.classList.add('loader--active');
 
+            let randId = makeid(5);
+            let randIdSwipe = makeid(5);
 
+            setTimeout(function() {
+                document.querySelector(".position").innerHTML = `
+            
+
+            <div class="article" id="${randId}">
+                <br><br>
+                <p style="text-align: center; margin-left: 20px; margin-right: 20px; width: 80%;">
+                ${data}
+                <br><br><br><br><br><br>
+                <small>Swipe from left to right to exit this page.</small>
+                </p>
+                <div class="swipe" id="${randIdSwipe}">
+
+                </div>
+            </div>
+
+            `;
+                document.querySelector(".position").style = "background-color: rgb(51, 51, 51); width: 100%; height: 100%; position: fixed;";
+
+                (new Swipe('#' + randIdSwipe)).onRight(function() {
+                    let position = document.querySelector(".position");
+                    position.innerHTML = "";
+                    document.querySelector(".position").style = "";
+                }).run();
+
+            }, 1500);
 
             window.setTimeout(function() {
                 document.title = "Conduit";
-                $loader.classList.remove('loader--active')
+                $loader.classList.remove('loader--active');
+                document.querySelector("#" + randId).style.display = "";
             }, 2000);
         }
+
+        document.onload = function() {
+            initiate();
+        };
     </script>
 
     <link rel="stylesheet" href="res/seamless.css">
@@ -118,83 +216,9 @@
                 </div>
             </a>
         </div>
-        <div class="page-2 page-">
 
-        </div>
-
-        <div class="space">
-
-        </div>
-
-        <script>
-            var isMobile = {
-                Android: function() {
-                    return navigator.userAgent.match(/Android/i);
-                },
-                BlackBerry: function() {
-                    return navigator.userAgent.match(/BlackBerry/i);
-                },
-                iOS: function() {
-                    return navigator.userAgent.match(/iPhone|iPad|iPod/i);
-                },
-                Opera: function() {
-                    return navigator.userAgent.match(/Opera Mini/i);
-                },
-                Windows: function() {
-                    return navigator.userAgent.match(/IEMobile/i);
-                },
-                any: function() {
-                    return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() ||
-                        isMobile.Windows());
-                }
-            };
-
-            if ((!(isMobile.iOS() && window.navigator.standalone)) && (document.cookie != "dev")) {
-                document.querySelector(".wrapper-main").innerHTML = `
-            
-            <div class="Outerview">
-        <div class="title-section">
-            <p class="sub-heading">
-                Incompatible device
-            </p>
-            <p class="main-heading">
-                Incompatible
-            </p>
-
-            <!--
-
-                    To enable developement mode, type in "devmode();" in the console.
-                Developement mode bypasses the ios/standalone check.
-                Enjoy!
-
-                - The kind creator
-
-            -->
-        </div>
-        <div class="icon-section">
-            <img class="icon-img" src="res/no-support.png"></img>
-        </div>
     </div>
-
-            `;
-            }
-
-            function devmode() {
-                if (document.cookie == "dev") {
-                    document.cookie = "";
-                    console.log("Dev mode is now off.");
-                    setTimeout(function() {
-                        location.reload();
-                    }, 1000);
-                } else {
-                    document.cookie = "dev";
-                    console.log("Dev mode is now on.");
-                    setTimeout(function() {
-                        location.reload();
-                    }, 1000);
-                }
-            }
-        </script>
+    <div class="position">
 
     </div>
 
@@ -229,6 +253,33 @@
         * {
             -ms-overflow-style: none;
             scrollbar-width: none;
+        }
+        
+        .swipe {
+            width: 100%;
+            height: 100%;
+            z-index: 1006;
+            background-color: rgba(0, 0, 0, 0);
+        }
+        
+        .article {
+            background-color: rgb(51, 51, 51);
+            height: 100%;
+            width: 90%;
+            margin-left: 20px;
+            margin-right: 20px;
+            height: 100%;
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            z-index: 1005;
+        }
+        
+        .holder {
+            background-color: rgb(51, 51, 51);
+            width: 100%;
+            height: 100%;
+            position: fixed;
         }
         
         .space {
@@ -284,6 +335,78 @@
             overflow: hidden;
         }
     </style>
+
+
+
+    <script>
+        var isMobile = {
+            Android: function() {
+                return navigator.userAgent.match(/Android/i);
+            },
+            BlackBerry: function() {
+                return navigator.userAgent.match(/BlackBerry/i);
+            },
+            iOS: function() {
+                return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+            },
+            Opera: function() {
+                return navigator.userAgent.match(/Opera Mini/i);
+            },
+            Windows: function() {
+                return navigator.userAgent.match(/IEMobile/i);
+            },
+            any: function() {
+                return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() ||
+                    isMobile.Windows());
+            }
+        };
+
+        if ((!(isMobile.iOS() && window.navigator.standalone)) && (document.cookie != "dev")) {
+            document.querySelector(".wrapper-main").innerHTML = `
+    
+    <div class="Outerview">
+<div class="title-section">
+    <p class="sub-heading">
+        Incompatible device
+    </p>
+    <p class="main-heading">
+        Incompatible
+    </p>
+
+    <!--
+
+            To enable developement mode, type in "devmode();" in the console.
+        Developement mode bypasses the ios/standalone check.
+        Enjoy!
+
+        - The kind creator
+
+    -->
+</div>
+<div class="icon-section">
+    <img class="icon-img" src="res/no-support.png"></img>
+</div>
+</div>
+
+    `;
+        }
+
+        function devmode() {
+            if (document.cookie == "dev") {
+                document.cookie = "";
+                console.log("Dev mode is now off.");
+                setTimeout(function() {
+                    location.reload();
+                }, 1000);
+            } else {
+                document.cookie = "dev";
+                console.log("Dev mode is now on.");
+                setTimeout(function() {
+                    location.reload();
+                }, 1000);
+            }
+        }
+    </script>
 
 </body>
 

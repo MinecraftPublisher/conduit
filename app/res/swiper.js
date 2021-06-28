@@ -74,7 +74,11 @@ class Swipe {
 
     run() {
         this.element.addEventListener('touchmove', function(evt) {
-            this.handleTouchMove(evt).bind(this);
+            try {
+                this.handleTouchMove(evt).bind(this);
+            } catch {
+
+            }
         }.bind(this), false);
     }
 }
