@@ -396,13 +396,10 @@
             },
             Windows: function() {
                 return navigator.userAgent.match(/IEMobile/i);
-            },
-            any: function() {
-                return (isMobile.Android() || isMobile.BlackBerry());
             }
         };
 
-        if ((!(isMobile.iOS() && window.navigator.standalone)) && (!isMobile.any())) {
+        if ((!(isMobile.iOS() && window.navigator.standalone)) && (!isMobile.Android())) {
             window.location.href = "./error";
         }
 
