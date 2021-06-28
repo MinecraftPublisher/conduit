@@ -9,11 +9,26 @@
     <link rel="shortcut icon" href="../conduit.png?uncache=92547987">
     <script src='https://js.sentry-cdn.com/d7598e6c887b459cbef62d65a2f03995.min.js' crossorigin="anonymous"></script>
     <script src="res/swiper.js"></script>
+    <script src="res/cookies.js"></script>
     <link href="../monolisa.css" rel="stylesheet">
 
 </head>
 
 <body>
+
+    <!-- BEGIN version -->
+    <script>
+        /* This is a variable that contains the current version of conduit. */
+
+        let version = "v2.5";
+        let previousVersion = getCookie("version");
+
+        if (previousVersion == "") {
+            setCookie("version", version, 365);
+            previousVersion = version;
+        }
+    </script>
+    <!-- END version -->
 
     <script>
         Sentry.onLoad(function() {
@@ -64,7 +79,17 @@
             httpGetAsync("posts.JSON", function(res) {
                 try {
                     posts = JSON.parse(res);
-                    let output = "";
+                    let versionS = ``;
+
+                    if (version == previousVersion) {
+                        versionS = `${version}`;
+                    } else {
+                        versionS = `${version}<br>previous: ${previousVersion}<br>Update/Rollback completed`;
+                        setCookie("version", version, 365);
+                    }
+
+                    let output = `
+    <h1 style="width: 100%; text-align: center;">Conduit</h1><h3 style="width: 100%; text-align: center;">${versionS}</h3><br>`;
                     let id = 1;
 
                     posts.forEach((post) => {
@@ -378,7 +403,7 @@
             }
         };
 
-        if ((!(isMobile.iOS() && window.navigator.standalone)) && (document.cookie != "dev")) {
+        if ((!(isMobile.iOS() && window.navigator.standalone)) && (getCookie("dev") != "dev")) {
             document.querySelector(".wrapper-main").innerHTML = `
     
     <div class="Outerview">
@@ -409,19 +434,16 @@
         }
 
         function devmode() {
-            if (document.cookie == "dev") {
-                document.cookie = "";
+            if (getCookie("dev") == "dev") {
+                setCookie("dev", "production", 365);
                 console.log("Dev mode is now off.");
-                setTimeout(function() {
-                    location.reload();
-                }, 1000);
             } else {
-                document.cookie = "dev";
+                setCookie("dev", "dev", 365);
                 console.log("Dev mode is now on.");
-                setTimeout(function() {
-                    location.reload();
-                }, 1000);
             }
+            setTimeout(function() {
+                location.reload();
+            }, 1000);
         }
     </script>
 
