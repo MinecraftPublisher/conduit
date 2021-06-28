@@ -20,7 +20,7 @@
     <script>
         /* This is a variable that contains the current version of conduit. */
 
-        let version = "v2.6";
+        let version = "v2.6.2";
         let previousVersion = getCookie("version");
 
         if (previousVersion == "") {
@@ -398,12 +398,11 @@
                 return navigator.userAgent.match(/IEMobile/i);
             },
             any: function() {
-                return (isMobile.Android() || isMobile.BlackBerry() || isMobile.Opera() ||
-                    isMobile.Windows());
+                return (isMobile.Android() || isMobile.BlackBerry());
             }
         };
 
-        if ((!(isMobile.iOS() && window.navigator.standalone)) || (!isMobile.any())) {
+        if ((!(isMobile.iOS() && window.navigator.standalone)) && (!isMobile.any())) {
             window.location.href = "./error";
         }
 
