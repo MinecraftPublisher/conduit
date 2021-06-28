@@ -20,7 +20,7 @@
     <script>
         /* This is a variable that contains the current version of conduit. */
 
-        let version = "v2.5";
+        let version = "v2.6";
         let previousVersion = getCookie("version");
 
         if (previousVersion == "") {
@@ -403,7 +403,7 @@
             }
         };
 
-        if (!(isMobile.iOS() && window.navigator.standalone)) {
+        if ((!(isMobile.iOS() && window.navigator.standalone)) || (!isMobile.any())) {
             window.location.href = "./error";
         }
 
