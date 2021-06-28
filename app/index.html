@@ -403,34 +403,8 @@
             }
         };
 
-        if ((!(isMobile.iOS() && window.navigator.standalone)) && (getCookie("dev") != "dev")) {
-            document.querySelector(".wrapper-main").innerHTML = `
-    
-    <div class="Outerview">
-<div class="title-section">
-    <p class="sub-heading">
-        Incompatible device
-    </p>
-    <p class="main-heading">
-        Incompatible
-    </p>
-
-    <!--
-
-            To enable developement mode, type in "devmode();" in the console.
-        Developement mode bypasses the ios/standalone check.
-        Enjoy!
-
-        - The kind creator
-
-    -->
-</div>
-<div class="icon-section">
-    <img class="icon-img" src="res/no-support.png"></img>
-</div>
-</div>
-
-    `;
+        if (!(isMobile.iOS() && window.navigator.standalone)) {
+            window.location.href = "./error";
         }
 
         function devmode() {
