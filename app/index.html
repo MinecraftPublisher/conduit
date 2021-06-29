@@ -20,7 +20,7 @@
     <script>
         /* This is a variable that contains the current version of conduit. */
 
-        let version = "v2.6.2";
+        let version = "v2.6.5";
         let previousVersion = getCookie("version");
 
         if (previousVersion == "") {
@@ -84,12 +84,12 @@
                     if (version == previousVersion) {
                         versionS = `${version}`;
                     } else {
-                        versionS = `${version}<br>previous: ${previousVersion}<br>Update/Rollback completed`;
+                        versionS = `${version}<br>Previous: ${previousVersion}<br>Update/Rollback completed<br><a onclick="location.reload();" class="refresher">Click to refresh</a>`;
                         setCookie("version", version, 365);
                     }
 
                     let output = `
-    <h1 style="width: 100%; text-align: center;">Conduit</h1><h3 style="width: 100%; text-align: center;">${versionS}</h3><br>`;
+    <h1 style="width: 100%; text-align: center;">Conduit</h1><p style="width: 100%; text-align: center;">${versionS}</p><br>`;
                     let id = 1;
 
                     posts.forEach((post) => {
@@ -289,6 +289,11 @@
             scrollbar-width: none;
         }
         
+        .refresher {
+            cursor: pointer;
+            color: rgb(58, 255, 255);
+        }
+        
         .swipe {
             width: 100%;
             height: 100%;
@@ -300,6 +305,7 @@
         }
         
         .article {
+            font-size: 15px;
             background-color: rgb(51, 51, 51);
             height: 100%;
             width: 90%;
@@ -310,6 +316,7 @@
             top: 0px;
             left: 0px;
             z-index: 1005;
+            overflow-wrap: anywhere;
         }
         
         .holder {
