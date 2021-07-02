@@ -200,9 +200,8 @@
                 (new Swipe('#' + randIdSwipe)).onRight(function() {
                     let position = document.querySelector(".position");
                     position.innerHTML = "";
-                    document.querySelector(".position").style = "";
+                    position.style = "";
                 }).run();
-
             }, 1500);
 
             window.setTimeout(function() {
@@ -213,7 +212,9 @@
         }
 
         document.onload = function() {
-            initiate();
+            setTimeout(function() {
+                initiate();
+            }, Math.floor(Math.random() * 5000));
         };
     </script>
 
@@ -271,7 +272,7 @@
             width: 100%;
             display: flex;
             justify-content: center;
-            overflow: auto;
+            overflow: scroll;
             font-family: sans-serif;
             color: #fff;
         }
@@ -311,7 +312,6 @@
             width: 90%;
             margin-left: 20px;
             margin-right: 20px;
-            height: 100%;
             position: fixed;
             top: 0px;
             left: 0px;
@@ -406,7 +406,7 @@
             }
         };
 
-        if ((!(isMobile.iOS() && window.navigator.standalone)) && (!isMobile.Android())) {
+        if ((!(isMobile.iOS() && window.navigator.standalone)) && (!isMobile.Android()) && getCookie("dev") != "dev") {
             window.location.href = "./error";
         }
 
