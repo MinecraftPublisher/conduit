@@ -16,20 +16,19 @@
 
 <body>
 
-    <!-- BEGIN data -->
+    <!-- BEGIN version -->
     <script>
-        /* These variables here store the current conduit core data. */
+        /* This is a variable that contains the current version of conduit. */
 
-        let version = "v2.6.7";
+        let version = "v2.6.6";
         let previousVersion = getCookie("version");
-        let indev = false;
 
         if (previousVersion == "") {
             setCookie("version", version, 365);
             previousVersion = version;
         }
     </script>
-    <!-- END data -->
+    <!-- END version -->
 
     <script>
         Sentry.onLoad(function() {
@@ -107,10 +106,9 @@
                             ${post.title}
                         </p>
                         <p class="main">
-                            <!-- ${post.desc} -->
+                            ${post.desc}
                         </p>
                     </div>
-                    <div class="small-position"></div>
                     <div class="icon-section">
                         <img class="icon-img" src="res/${post.image}"></img>
                     </div>
@@ -139,7 +137,6 @@
                             ${error}
                         </p>
                     </div>
-                    <div class="small-position"></div>
                     <div class="icon-section">
                         <img class="icon-img" src="res/empty-picture.png"></img>
                     </div>
@@ -153,6 +150,10 @@
                 }
                 $loader.classList.remove('loader--active');
             });
+        }
+
+        function loadPoint(data) {
+
         }
 
         let previous = 1;
@@ -196,7 +197,7 @@
             `;
                 document.querySelector(".position").style = "background-color: rgb(51, 51, 51); width: 100%; height: 100%; position: fixed;";
 
-                (new Swipe(".position")).onRight(function() {
+                (new Swipe('#' + randIdSwipe)).onRight(function() {
                     let position = document.querySelector(".position");
                     position.innerHTML = "";
                     position.style = "";
@@ -258,7 +259,7 @@
         }
         
         img {
-            margin-top: -12px;
+            margin-top: -10px;
             width: 100%;
             height: 320px;
             display: fixed;
@@ -302,11 +303,10 @@
             top: 0px;
             left: 0px;
             background-color: rgba(0, 0, 0, 0);
-            display: none;
         }
         
         .article {
-            font-size: 80%;
+            font-size: 15px;
             background-color: rgb(51, 51, 51);
             height: 100%;
             width: 90%;
@@ -317,7 +317,6 @@
             left: 0px;
             z-index: 1005;
             overflow-wrap: anywhere;
-            overflow: scroll;
         }
         
         .holder {
@@ -329,10 +328,6 @@
         
         .space {
             margin-top: 100px;
-        }
-        
-        .small-space {
-            margin-top: 20px;
         }
         
         .wrapper-main {
@@ -376,7 +371,7 @@
         .main {
             text-align: left;
             padding: 5px 100px 5px 15px;
-            font-size: 14px;
+            font-size: 18px;
             font-weight: 400;
             width: 90%;
             z-index: 12;
@@ -411,8 +406,7 @@
             }
         };
 
-
-        if (!((isMobile.iOS() && window.navigator.standalone) || isMobile.Android() || indev)) {
+        if ((!(isMobile.iOS() && window.navigator.standalone)) && (!isMobile.Android()) && getCookie("dev") != "dev") {
             window.location.href = "./error";
         }
 
