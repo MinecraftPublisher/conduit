@@ -1,0 +1,61 @@
+<html>
+
+<head>
+    <title>Conduit Pet App</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-title" content="Conduit">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="apple-touch-icon" href="../../conduit.png?uncache=92547987">
+    <link rel="shortcut icon" href="../../conduit.png?uncache=92547987">
+    <script src='https://js.sentry-cdn.com/d7598e6c887b459cbef62d65a2f03995.min.js' crossorigin="anonymous"></script>
+    <script src="../res/swiper.js"></script>
+    <script src="../res/cookies.js"></script>
+    <link href="../../monolisa.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="content">
+        <img src="../res/axolotl-icon.png"></img>
+        <h1>Hold on, loading resources<span class="dot"></span></h1>
+    </div>
+
+
+
+    <script>
+        let num = 0;
+
+        setInterval(function() {
+            num++;
+            if (num >= 100) {
+                num = 0;
+            }
+            document.querySelectorAll(".dot").forEach((dot) => {
+                dot.innerText = new Array((num % 3) + 2).join(".");
+            });
+        }, 500);
+
+        setTimeout(function() {
+            document.querySelector(".content").innerHTML = `
+            
+            Sorry about this, but this part will be completed after my Game making library, SummerJS.
+            <a href="http://summer.js.org/">http://summer.js.org/</a>
+            
+            `;
+        }, 1500);
+    </script>
+
+    <style>
+        * {
+            font-family: 'MonoLisa';
+            background-color: #90d8de;
+            color: #426cf5;
+        }
+        
+        body {
+            text-align: center;
+            overflow: hidden;
+        }
+    </style>
+</body>
+
+</html>

@@ -54,16 +54,20 @@ class Swipe {
         this.yDiff = this.yDown - yUp;
 
         if (Math.abs(this.xDiff) > Math.abs(this.yDiff)) { // Most significant.
-            if (this.xDiff > 0) {
-                this.onLeft();
-            } else {
-                this.onRight();
+            if (Math.abs(this.xDiff) > 10) {
+                if (this.xDiff > 0) {
+                    this.onLeft();
+                } else {
+                    this.onRight();
+                }
             }
         } else {
-            if (this.yDiff > 0) {
-                this.onUp();
-            } else {
-                this.onDown();
+            if (Math.abs(this.yDiff) > 10) {
+                if (this.yDiff > 0) {
+                    this.onUp();
+                } else {
+                    this.onDown();
+                }
             }
         }
 
