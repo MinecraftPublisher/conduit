@@ -8,8 +8,8 @@
     <link rel="apple-touch-icon" href="../conduit.png?uncache=92547987">
     <link rel="shortcut icon" href="../conduit.png?uncache=92547987">
     <script src='https://js.sentry-cdn.com/d7598e6c887b459cbef62d65a2f03995.min.js' crossorigin="anonymous"></script>
-    <script src="res/swiper.js"></script>
-    <script src="res/cookies.js"></script>
+    <script src="./res/swiper.js"></script>
+    <script src="./res/cookies.js"></script>
     <link href="../monolisa.css" rel="stylesheet">
 
 </head>
@@ -31,7 +31,7 @@
     <!-- END version -->
 
     <script>
-        Sentry.onLoad(function() {
+        Sentry.onLoad(function () {
             Sentry.init({
                 dsn: "https: //d7598e6c887b459cbef62d65a2f03995@o881457.ingest.sentry.io/5835824",
                 beforeSend(event, hint) {
@@ -64,7 +64,7 @@
 
         function httpGetAsync(theUrl, callback) {
             var xmlHttp = new XMLHttpRequest();
-            xmlHttp.onreadystatechange = function() {
+            xmlHttp.onreadystatechange = function () {
                 if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
                     callback(xmlHttp.responseText);
             }
@@ -73,29 +73,32 @@
         }
 
         let posts = [];
+        let resources = {};
         let HTMLs = {};
 
         function initiate() {
-            httpGetAsync("posts.JSON", function(res) {
-                try {
-                    posts = JSON.parse(res);
-                    let versionS = ``;
+            httpGetAsync("posts.json", function (res) {
+                httpGetAsync("props.json", function (res2) {
+                    try {
+                        posts = JSON.parse(res);
+                        resources = JSON.parse(res2);
+                        let versionS = ``;
 
-                    if (version == previousVersion) {
-                        versionS = `${version}`;
-                    } else {
-                        versionS = `${version}<br>Previous: ${previousVersion}<br>Update/Rollback completed<br><a onclick="location.reload();" class="refresher">Click to refresh</a>`;
-                        setCookie("version", version, 365);
-                    }
+                        if (version == previousVersion) {
+                            versionS = `${version}`;
+                        } else {
+                            versionS = `${version}<br>Previous: ${previousVersion}<br>Update/Rollback completed<br><a onclick="location.reload();" class="refresher">Click to refresh</a>`;
+                            setCookie("version", version, 365);
+                        }
 
-                    let output = `
-    <h1 style="width: 100%; text-align: center;">Conduit</h1><p style="width: 100%; text-align: center;">${versionS}</p><br>`;
-                    let id = 1;
+                        let output = `
+    <h1 style="width: 100%; text-align: center;">${resources}</h1><p style="width: 100%; text-align: center;">${versionS}</p><br>`;
+                        let id = 1;
 
-                    posts.forEach((post) => {
+                        posts.forEach((post) => {
 
-                        HTMLs["post-" + id] = post.html;
-                        output += `<div class="page-${id} page-">
+                            HTMLs["post-" + id] = post.html;
+                            output += `<div class="page-${id} page-">
             <a class="card-click" onclick="loadPage(HTMLs['post-${id}']);">
                 <div class="Outerview">
                     <div class="title-section">
@@ -114,21 +117,21 @@
         </div><br><br>`;
 
 
-                        id++;
-                    });
+                            id++;
+                        });
 
-                    document.querySelector(".wrapper-main").innerHTML = output + `<div class="space"></div>`;
+                        document.querySelector(".wrapper-main").innerHTML = output + `<div class="space"></div>`;
 
-                } catch (error) {
-                    document.querySelector(".wrapper-main").innerHTML = `<div class="page-error page-">
-            <a class="card-click" onclick="loadPage(HTMLs[\"post-\" + id]);">
+                    } catch (error) {
+                        document.querySelector(".wrapper-main").innerHTML = `<div class="page-error page-">
+            <a class="card-click">
                 <div class="Outerview">
                     <div class="title-section">
                         <p class="sub-heading">
-                            Parser error
+                            مشکل فایل
                         </p>
                         <p class="main-heading">
-                            Error while parsing data, try again later.
+                            فایل شما مشکل داشت، لطفا مشکل آنرا برطرف کنید.
                         </p>
                         <p class="main">
                             ${error}
@@ -144,8 +147,9 @@
                     
                     
                     `;
-                }
-                $loader.classList.remove('loader--active');
+                    }
+                    $loader.classList.remove('loader--active');
+                })
             });
         }
 
@@ -175,7 +179,7 @@
             let randId = makeid(5);
             let randIdSwipe = makeid(5);
 
-            setTimeout(function() {
+            setTimeout(function () {
                 document.querySelector(".position").innerHTML = `
             
 
@@ -184,7 +188,7 @@
                 <p style="text-align: center; margin-left: 20px; margin-right: 20px; width: 80%;">
                 ${data}
                 <br><br><br><br><br><br>
-                <small>Swipe from left to right to exit this page.</small>
+                <small>برای خروج از چپ به راست بکشید.</small>
                 </p>
                 <div class="swipe" id="${randIdSwipe}">
 
@@ -194,22 +198,22 @@
             `;
                 document.querySelector(".position").style = "background-color: rgb(51, 51, 51); width: 100%; height: 100%; position: fixed;";
 
-                (new Swipe('#' + randIdSwipe)).onRight(function() {
+                (new Swipe('#' + randIdSwipe)).onRight(function () {
                     let position = document.querySelector(".position");
                     position.innerHTML = "";
                     position.style = "";
                 }).run();
             }, 1500);
 
-            window.setTimeout(function() {
+            window.setTimeout(function () {
                 document.title = "Conduit";
                 $loader.classList.remove('loader--active');
                 document.querySelector("#" + randId).style.display = "";
             }, 2000);
         }
 
-        document.onload = function() {
-            setTimeout(function() {
+        document.onload = function () {
+            setTimeout(function () {
                 initiate();
             }, Math.floor(Math.random() * 5000));
         };
@@ -227,13 +231,13 @@
                 <div class="Outerview">
                     <div class="title-section">
                         <p class="sub-heading">
-                            Loading
+                            کاندویت
                         </p>
                         <p class="main-heading">
-                            Starting conduit...
+                            در حال بارگذاری کاندویت...
                         </p>
                         <p class="main">
-                            All great things must load.<br> - Idk who said that
+                            
                         </p>
                     </div>
                     <div class="icon-section">
@@ -254,14 +258,14 @@
             margin: 0;
             font-family: 'MonoLisa', monospace;
         }
-        
+
         img {
             margin-top: -10px;
             width: 100%;
             height: 320px;
             display: fixed;
         }
-        
+
         html,
         body {
             background-color: #000;
@@ -273,25 +277,25 @@
             font-family: sans-serif;
             color: #fff;
         }
-        
+
         p {
             margin: 5px;
         }
-        
+
         -webkit-scrollbar {
             display: none;
         }
-        
+
         * {
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
-        
+
         .refresher {
             cursor: pointer;
             color: rgb(58, 255, 255);
         }
-        
+
         .swipe {
             width: 100%;
             height: 100%;
@@ -301,7 +305,7 @@
             left: 0px;
             background-color: rgba(0, 0, 0, 0);
         }
-        
+
         .article {
             font-size: 15px;
             background-color: rgb(51, 51, 51);
@@ -315,23 +319,23 @@
             z-index: 1005;
             overflow-wrap: anywhere;
         }
-        
+
         .holder {
             background-color: rgb(51, 51, 51);
             width: 100%;
             height: 100%;
             position: fixed;
         }
-        
+
         .space {
             margin-top: 100px;
         }
-        
+
         .wrapper-main {
             margin-top: 50px;
             margin-bottom: 50px;
         }
-        
+
         .Outerview {
             z-index: 10;
             min-height: 320px;
@@ -344,7 +348,7 @@
             overflow: hidden;
             border-radius: 10px;
         }
-        
+
         .sub-heading {
             color: rgba(255, 255, 255, 0.6);
             text-align: left;
@@ -354,7 +358,7 @@
             font-weight: 600;
             z-index: 12;
         }
-        
+
         .main-heading {
             text-align: left;
             padding: 5px 100px 5px 15px;
@@ -364,7 +368,7 @@
             width: 90%;
             z-index: 12;
         }
-        
+
         .main {
             text-align: left;
             padding: 5px 100px 5px 15px;
@@ -373,7 +377,7 @@
             width: 90%;
             z-index: 12;
         }
-        
+
         .icon-holder {
             display: flex;
             justify-content: space-between;
@@ -386,19 +390,19 @@
 
     <script>
         var isMobile = {
-            Android: function() {
+            Android: function () {
                 return navigator.userAgent.match(/Android/i);
             },
-            BlackBerry: function() {
+            BlackBerry: function () {
                 return navigator.userAgent.match(/BlackBerry/i);
             },
-            iOS: function() {
+            iOS: function () {
                 return navigator.userAgent.match(/iPhone|iPad|iPod/i);
             },
-            Opera: function() {
+            Opera: function () {
                 return navigator.userAgent.match(/Opera Mini/i);
             },
-            Windows: function() {
+            Windows: function () {
                 return navigator.userAgent.match(/IEMobile/i);
             }
         };
@@ -415,7 +419,7 @@
                 setCookie("dev", "dev", 365);
                 console.log("Dev mode is now on.");
             }
-            setTimeout(function() {
+            setTimeout(function () {
                 location.reload();
             }, 1000);
         }
