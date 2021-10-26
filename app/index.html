@@ -168,7 +168,7 @@
 
             <div class="article" id="${randId}">
                 <br><br>
-                <p style="text-align: center; margin-left: 20px; margin-right: 20px; width: 80%;">
+                <p style="margin-left: 20px; margin-right: 20px; width: 80%;">
                 ${data}
                 <br><br><br><br><br><br>
                 <small>برای خروج از چپ به راست بکشید.</small>
@@ -240,10 +240,8 @@
             padding: 0;
             margin: 0;
             font-family: 'MonoLisa', monospace;
-        }
-        
-        body {
             direction: rtl;
+            text-align: right;
         }
 
         img {
@@ -338,7 +336,6 @@
 
         .sub-heading {
             color: rgba(255, 255, 255, 0.6);
-            text-align: left;
             padding: 15px 15px 5px 15px;
             font-size: 16px;
             text-transform: uppercase;
@@ -347,9 +344,10 @@
         }
 
         .main-heading {
-            text-align: left;
-            padding: 5px 100px 5px 15px;
+            padding: 5px 5px 4px 20px;
             font-size: 24px;
+            direction: rtl;
+            text-align: right;
             font-weight: 600;
             text-transform: capitalize;
             width: 90%;
@@ -357,7 +355,6 @@
         }
 
         .main {
-            text-align: left;
             padding: 5px 100px 5px 15px;
             font-size: 18px;
             font-weight: 400;
