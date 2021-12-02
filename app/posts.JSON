@@ -7,6 +7,12 @@
         "html": "<h1>Welcome to conduit!</h1><hr><br>In this brief guide you will learn about the impressive features included in conduit.<br>Conduit consists of different posts, posted by me ( martia_f ). You can click on any post you like, or scroll further for more posts.<br>Clicking on a post, shows a BEAUTIFUL ( oops, my bad ) animation, and you will see the interactive content that i have posted, an example is this one. If you scroll a bit more in every page, you can find out that by swiping from left to right, you can get back to the main menu.<br>Each interactive component has its own guide on how to use it, so... i think i am done here, see ya!"
     },
     {
+        "sub": "One tool that will help you",
+        "title": "Sign and install any URL as an app!",
+        "image": "image_2021-12-02_075605.png",
+        "html": "<h1>Conduit URL signer</h1><hr><p><i>Finally, I made a post after years!</i> I will now show you how to upload your own details!</p><input class='name' placeholder='The app name'><input class='url' placeholder='The app URL'><button onclick=\"_.get('res/ConduitProfile.mobileconfig', (data) => { let profile = data.toString().replace('') })\">Create! (Broken, Will fix in a while)</button>"
+    },
+    {
         "sub": "Simulation!",
         "title": "Keep your own pet in your phone via conduit!",
         "image": "axolotl-icon.png",
